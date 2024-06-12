@@ -24,7 +24,7 @@
         </div>
 
         <div class="card-body">
-          <form action="#" method="post">
+          <form  method="post">
 
             <div class="col-10 form-group" style="text-align: center;">
               <label for=""><b>Select Company </b></label>
@@ -74,13 +74,19 @@
             </div>
 
             <div class="col-10 form-group" style="text-align: center;">
-              <button class="btn btn-primary form-control">Predict Price </button>
+              <button class="btn btn-primary form-control" onclick="sent_data()">Predict Price </button>
             </div>
 
 
 
 
           </form>
+          <br>
+          <div class="row">
+            <div class="col-12" style="text-align: center;">
+              <h3><span id="prediction"></span></h3>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -111,6 +117,28 @@
         {% endfor %}
       }
       {% endfor %}
+    }
+
+    function form_handler(event){
+      event.preventDefault();
+    }
+    function sent_data(){
+      document.querySelector("form").addEventListener("submit",form_handler);
+
+      var fd=new FormData(document.querySelector('form'));
+      var xhr=new XMLHttpRequest({mozSyste:true});
+      xhr.open('POST','/predict',true)
+      document.getElementById('prediction').innerHTML="Wait! Predicting the price..";
+
+      xhr.onreadystatechange = function(){
+        if(xhr.readyState==XMLHttpRequest.DONE)
+        {
+          document.getElementById("prediction").innerHTML="Prediction : ₹"+xhr.responseText;
+        }
+      }
+      xhr.onload=function(){};
+      xhr.send(fd);
+      
     }
   </script>
 
