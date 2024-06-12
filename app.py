@@ -25,7 +25,8 @@ def predict():
     kms_driven=int(request.form.get('kms_driven'))
     # print(company,car_model,fuel_type,year,kms_driven)
     prediction=model.predict(pd.DataFrame([[car_model,company,year,kms_driven,fuel_type]],columns=['name','company','year','kms_driven','fuel_type']))
-    if(prediction[0]<0):prediction[0]=0
+    if(prediction[0]<0):
+        prediction[0]=0
     return str(np.round(prediction[0],2))
    
 
