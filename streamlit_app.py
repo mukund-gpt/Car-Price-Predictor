@@ -1,10 +1,11 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import pickle
+import pypickle 
 
 # Load the model and the dataset
-model = pickle.load(open("LinearRegression.pkl", 'rb'))
+# model = pickle.load(open("LinearRegression.pkl", 'rb'))
+model=pypickle.load("LinearRegression.pkl",'rb')
 car = pd.read_csv('Cleaned car.csv')
 
 # Function to filter car models based on selected company
